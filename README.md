@@ -61,8 +61,6 @@ src/
     LowerThird.tsx        # Overlay com nome/cargo
   data/
     segments.ts           # Dados dos segmentos (cortes, nomes, atos)
-out/
-  *.srt, *.json, *.txt   # Transcricoes
 ```
 
 ## Como Editar
