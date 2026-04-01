@@ -5,3 +5,6 @@ dist/
 *.mp4
 *.mp3
 _work/
+outputs/
+projects/
+.claude/settings.local.json
