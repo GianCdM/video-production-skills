@@ -1,71 +1,69 @@
-# Valeu, Paga! — Video Homenagem
+# Video Production Skills
 
-Video de homenagem ao Paga, produzido com [Remotion](https://remotion.dev/) (React + TypeScript).
+Skills de produção de vídeo para assistentes de código AI. Clone direto na pasta de skills da sua ferramenta.
 
-## Estrutura do Video
+## Skills incluídas
 
-O video segue uma narrativa em **4 atos**, com 31 depoimentos de 11 pessoas do time iFood Multicategorias:
+| Skill | Descrição |
+|-------|-----------|
+| [video-editing-workflow](./video-editing-workflow/) | Pipeline completo de edição — intake de footage, transcrição, cortes com triad analysis, validação de fades, QA |
 
-| Ato | Titulo | Descricao |
-|-----|--------|-----------|
-| 1 | A Chegada | Primeiras impressoes e onboarding |
-| 2 | O Cara | Personalidade e relacoes |
-| 3 | O Impacto | Contribuicoes profissionais |
-| 4 | Valeu, Paga! | Despedida e desejos |
+## Dependência: remotion-best-practices
 
-**Specs:** 1280x720 @ 30fps | Transicoes dip-to-black | Lower thirds animados | Musica no outro
-
-## Setup
+Esta skill depende de `remotion-best-practices` (skill oficial do Remotion). Instale primeiro:
 
 ```bash
-# 1. Instalar dependencias
-bash setup.sh
-
-# 2. Colocar os arquivos de video (.mp4) na raiz do projeto
-# 3. Colocar Voa-Paga.mp3 na raiz ou em public/
-
-# Preview
-npm start
-
-# Render final
-npm run build
+npx skills add remotion-dev/skills
 ```
 
-## Arquivos de Video Necessarios
+## Instalação
 
-Os seguintes arquivos `.mp4` devem estar na raiz do projeto:
+### Claude Code
 
-- `Gian-Paga-cfr.mp4`
-- `Marcelo-Paga-cfr.mp4`
-- `Lucas Pessoa-Paga-cfr.mp4`
-- `Eli-Paga-cfr.mp4`
-- `Aline_Paga-cfr.mp4`
-- `Debora-Paga-cfr.mp4`
-- `Marta-Paga-cfr.mp4`
-- `giu-paga-cfr.mp4`
-- `Edu-Paga-cfr.mp4`
-- `Natalia-Paga-cfr.mp4`
-- `Renan-Paga-cfr.mp4`
-- `Voa-Paga.mp3` (musica do outro)
+```bash
+# Instalar dependência
+npx skills add remotion-dev/skills
 
-## Estrutura do Projeto
-
-```
-src/
-  compositions/
-    HomenagemPaga.tsx    # Composicao principal (timeline)
-  components/
-    TitleCard.tsx         # Cards de intro/outro
-    ActTitleCard.tsx      # Cards de transicao entre atos
-    TestimonialSegment.tsx # Segmento de depoimento
-    LowerThird.tsx        # Overlay com nome/cargo
-  data/
-    segments.ts           # Dados dos segmentos (cortes, nomes, atos)
+# Instalar este repo
+git clone https://github.com/GianCdM/video-production-skills.git ~/.claude/skills/video-production-skills
 ```
 
-## Como Editar
+O Claude Code detecta automaticamente cada `SKILL.md` recursivamente nas subpastas.
 
-- **Reordenar/adicionar segmentos:** Edite `src/data/segments.ts`
-- **Ajustar cortes:** Altere `start`/`end` em cada segmento
-- **Mudar atos:** Altere o campo `act` (1-4) — os title cards sao inseridos automaticamente
-- **Estilo:** Componentes em `src/components/`
+### Cursor
+
+```bash
+git clone https://github.com/GianCdM/video-production-skills.git /tmp/vps
+cp -r /tmp/vps/video-editing-workflow/SKILL.md .cursor/rules/video-editing-workflow.md
+cp -r /tmp/vps/video-editing-workflow/rules/ .cursor/rules/video-editing-workflow-rules/
+```
+
+### VS Code Copilot
+
+```bash
+git clone https://github.com/GianCdM/video-production-skills.git /tmp/vps
+mkdir -p .github/instructions
+cp -r /tmp/vps/video-editing-workflow/ .github/instructions/video-editing-workflow/
+```
+
+### Windsurf / Codex / Outros
+
+Clone e copie a pasta `video-editing-workflow/` para onde a ferramenta espera encontrar instruções. Cada skill é uma pasta com um `SKILL.md` (markdown com frontmatter YAML) e arquivos de referência em `rules/`.
+
+## Estrutura
+
+```
+video-production-skills/
+├── video-editing-workflow/
+│   ├── SKILL.md                  # Router — tipos de vídeo, índice de rules
+│   └── rules/
+│       ├── video-intake.md       # CFR normalization, Whisper, probing
+│       ├── thematic-editing.md   # Atos narrativos, lower-thirds
+│       ├── triad-analysis.md     # Waveform × SRT × timeline, cut validation
+│       ├── audio-shift.md        # Detecção e compensação de shift
+│       ├── coverage-analysis.md  # % de conteúdo usado por pessoa
+│       ├── fade-guidelines.md    # Durações de fade + exemplos Remotion
+│       ├── pitfalls.md           # Armadilhas comuns
+│       └── quality-checklist.md  # Checklist pré-entrega
+└── README.md
+```
